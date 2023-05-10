@@ -2,7 +2,7 @@ import math
 from platform import node
 
 # Contentfile
-CONTENTFILE = "ht_test"
+CONTENTFILE = "test1"
 GEN_METHOD = "gaussian"
 
 # Episode Number
