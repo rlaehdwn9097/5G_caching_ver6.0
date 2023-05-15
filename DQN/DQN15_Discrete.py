@@ -115,8 +115,8 @@ class Agent:
 
         self.model.train(states, targets)
     
-    def train(self, max_episodes=2000):
-        for ep in range(max_episodes):
+    def train(self):
+        for ep in range(cf.MAX_EPISODE_NUM):
             #@ 1. 변수와 network reset 해줌.
             done, episode_reward = False, 0
             #

@@ -21,11 +21,11 @@ class savingfunctions():
 
         self.index=1
         self.set_result_file()
-        self.set_meta_file()
 
+        self.save_config_file()
         
-        self.tmp_file = open(self.folderName +"/tmp.txt",'a', encoding="UTF-8")
-        self.actionDictionary_file = open(self.folderName +"/actionDictionary.txt",'a', encoding="UTF-8")
+        #self.tmp_file = open(self.folderName +"/tmp.txt",'a', encoding="UTF-8")
+        #self.actionDictionary_file = open(self.folderName +"/actionDictionary.txt",'a', encoding="UTF-8")
 
     
     ## save them to file if done
@@ -122,59 +122,9 @@ class savingfunctions():
         self.meta_file = open(self.folderName +"/metafile.txt",'a')
         self.write_meta_file()
 
-    def write_meta_file(self):
-        self.meta_file.write("===Network simulator Meta Data===\n")
-        self.meta_file.write('TOTAL_PRIOD = {}\n'.format(cf.TOTAL_PRIOD))
-        self.meta_file.write('MAX_ROUNDS = {}\n'.format(cf.MAX_ROUNDS))
-        self.meta_file.write('MAX_REQ_PER_ROUND = {}\n'.format(cf.MAX_REQ_PER_ROUND))
-        self.meta_file.write('NB_NODES = {}\n'.format(cf.NB_NODES))
-        self.meta_file.write('TX_RANGE = {}\n'.format(cf.TX_RANGE))
-        self.meta_file.write('AREA_WIDTH = {}\n'.format(cf.AREA_WIDTH))
-        self.meta_file.write('AREA_LENGTH = {}\n'.format(cf.AREA_LENGTH))
-        self.meta_file.write('NUM_microBS = {}\n'.format(cf.NUM_microBS[0]*cf.NUM_microBS[1]))
-        self.meta_file.write('NUM_BS = {}\n'.format(cf.NUM_BS[0]*cf.NUM_BS[1]))
-        self.meta_file.write('microBS_SIZE = {}\n'.format(cf.microBS_SIZE))
-        self.meta_file.write('BS_SIZE = {}\n'.format(cf.BS_SIZE))
-        self.meta_file.write('CENTER_SIZE = {}\n'.format(cf.CENTER_SIZE))
-        self.meta_file.write('DLthroughput = {}\n'.format(cf.DLthroughput))
-        self.meta_file.write('ULthroughput = {}\n'.format(cf.ULthroughput))
-        self.meta_file.write('DLpackets_per_second = {}\n'.format(cf.DLpackets_per_second))
-        self.meta_file.write('ULpackets_per_second = {}\n'.format(cf.ULpackets_per_second))
-        self.meta_file.write('LATENCY_INTERNET = {}\n'.format(cf.LATENCY_INTERNET))
-        
-        self.meta_file.write("\n")
-        self.meta_file.write("===DQN structure Meta Data===\n")
-        self.meta_file.write("DNN Layer의 Hidden Unit 수는 H * state_dim 이다.\n")
-        self.meta_file.write('DROPOUT_RATE = {}\n'.format(cf.DROPOUT_RATE))
-        self.meta_file.write('H1 = {}\n'.format(cf.H1))
-        self.meta_file.write('H2 = {}\n'.format(cf.H2))
-        self.meta_file.write('H3 = {}\n'.format(cf.H3))
-        self.meta_file.write('H4 = {}\n'.format(cf.H4))
-        self.meta_file.write('H5 = {}\n'.format(cf.H5))
-        self.meta_file.write('H6 = {}\n'.format(cf.H6))
-        self.meta_file.write('q = {}\n'.format(cf.q))
-        self.meta_file.write("\n")
-
-        self.meta_file.write("===DQN Agent Meta Data===\n")
-        self.meta_file.write('GAMMA = {}\n'.format(cf.GAMMA))
-        self.meta_file.write('BATCH_SIZE = {}\n'.format(cf.BATCH_SIZE))
-        self.meta_file.write('BUFFER_SIZE = {}\n'.format(cf.BUFFER_SIZE))
-        self.meta_file.write('DQN_LEARNING_RATE = {}\n'.format(cf.LEARNING_RATE))
-        self.meta_file.write('TAU = {}\n'.format(cf.TAU))
-        self.meta_file.write('EPSILON = {}\n'.format(cf.EPSILON))
-        self.meta_file.write('EPSILON_DECAY = {}\n'.format(cf.EPSILON_DECAY))
-        self.meta_file.write('EPSILON_MIN = {}\n'.format(cf.EPSILON_MIN))
-        self.meta_file.write('NB_ACTION = {}\n'.format(cf.NB_ACTION))
-        self.meta_file.write("\n")
-
-        self.meta_file.write("===Reward parameter Meta Data===\n")
-        self.meta_file.write('a = {}\n'.format(cf.a))
-        self.meta_file.write('b = {}\n'.format(cf.b))
-        self.meta_file.write('c = {}\n'.format(cf.c))
-        self.meta_file.write('d = {}\n'.format(cf.d))
-        self.meta_file.write('e = {}\n'.format(cf.e))
-        self.meta_file.write("\n")
-        self.meta_file.write('P_REWARD = {}\n'.format(cf.P_REWARD))
-        self.meta_file.write('N_REWARD = {}\n'.format(cf.N_REWARD))
+    def save_config_file(self):
+        with open('./NetworkEnv/config.py', "r",encoding='UTF8') as source, open(self.folderName +"/config.py", "w",encoding='UTF8') as destination:
+            content = source.read()
+            destination.write(content)
 
      
