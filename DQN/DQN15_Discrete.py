@@ -124,7 +124,6 @@ class Agent:
             self.model.qs_action_cnt_list = [0,0,0,0]
             self.env.reset_parameters()
             while not done:
-                print(self.env.round_nb)
                 CACHE_HIT_FLAG, state, requested_content, path, done = self.env.run_round()
                 
                 #@ 6. core network 에서 cache hit이 일어났을 때
