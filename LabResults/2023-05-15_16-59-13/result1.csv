@@ -1,2 +1,0 @@
-ep,time,action_cnt,cache_hit,cache_hit_rate,avg_hop,episode_reward,gamma_episode_reward,cache_changed_cnt,action_3_cnt,random_action_cnt,qs_action_cnt
-1,200,192,8,0.04,3.945,2397.226052040681,0,1.0,41,192,0,41,0,0,44,0,0,0,0,55,0,0,0,0,52,0,0,0,0
