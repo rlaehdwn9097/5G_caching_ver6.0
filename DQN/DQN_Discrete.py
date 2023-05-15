@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,'C:/Users/USER/VScodeWorkspace/DeepRL-TensorFlow2')
+#sys.path.insert(0,'C:/Users/USER/VScodeWorkspace/DeepRL-TensorFlow2')
 
 import NetworkEnv.config as cf
 import NetworkEnv.Network as nt
@@ -62,7 +62,7 @@ class ActionStateModel():
             Input((self.state_dim*cf.H1,)),
             Dense(self.state_dim*cf.H2, activation='relu'),
             Dense(self.state_dim*cf.H8, activation='relu'),
-            Dense(self.action_dim, activation='softmax')
+            Dense(self.action_dim, activation='linear')
         ])
         model.compile(loss='mse', optimizer=Adam(cf.LEARNING_RATE))
         return model

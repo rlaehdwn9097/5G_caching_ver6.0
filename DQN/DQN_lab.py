@@ -1,6 +1,3 @@
-import sys
-sys.path.insert(0,'C:/Users/USER/VScodeWorkspace/DeepRL-TensorFlow2')
-
 import NetworkEnv.config as cf
 import NetworkEnv.Network as nt
 from ReplayBuffer import ReplayBuffer
@@ -17,17 +14,7 @@ from collections import deque
 import random
 
 tf.keras.backend.set_floatx('float64')
-wandb.init(name='DQN15', project="cache_sim")
-
-parser = argparse.ArgumentParser()
-parser.add_argument('--gamma', type=float, default=0.95)
-parser.add_argument('--lr', type=float, default=0.005)
-parser.add_argument('--batch_size', type=int, default=32)
-parser.add_argument('--eps', type=float, default=1.0)
-parser.add_argument('--eps_decay', type=float, default=0.995)
-parser.add_argument('--eps_min', type=float, default=0.01)
-
-args = parser.parse_args()
+#wandb.init(name='DQN15', project="cache_sim")
 
 class ActionStateModel:
     def __init__(self, state_dim, action_space):
@@ -46,7 +33,7 @@ class ActionStateModel:
             Dense(self.state_dim*cf.H8, activation='relu'),
             Dense(self.action_dim, activation='softmax')
         ])
-        model.compile(loss='mse', optimizer=Adam(args.lr))
+        model.compile(loss='mse', optimizer=Adam(cf.LEARNING_RATE))
         return model
     
     def predict(self, state):

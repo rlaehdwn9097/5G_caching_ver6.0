@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,'C:/Users/USER/vscodeworkspace/5G_Caching_porting_new_env')
+sys.path.insert(0,'C:/Users/USER/vscodeworkspace/5G_Caching_ver6.0')
 
 import NetworkEnv.config as cf
 from NetworkEnv import network as nt
@@ -20,11 +20,6 @@ import random
 tf.keras.backend.set_floatx('float64')
 #wandb.init(name='DQN_a1.5_b2', project="cache_sim")
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--contentfile', type=str, default=cf.CONTENTFILE)
-parser.add_argument('--generating_method', type=str, default=cf.GEN_METHOD)
-
-args = parser.parse_args()
 
 class ActionStateModel:
     def __init__(self, state_dim, action_space):
@@ -44,7 +39,7 @@ class ActionStateModel:
             Input((self.state_dim*cf.H1,)),
             Dense(self.state_dim*cf.H2, activation='relu'),
             Dense(self.state_dim*cf.H8, activation='relu'),
-            Dense(self.action_dim, activation='softmax')
+            Dense(self.action_dim, activation='linear')
         ])
         model.compile(loss='mse', optimizer=Adam(cf.LEARNING_RATE))
         return model
@@ -129,6 +124,7 @@ class Agent:
             self.model.qs_action_cnt_list = [0,0,0,0]
             self.env.reset_parameters()
             while not done:
+                print(self.env.round_nb)
                 CACHE_HIT_FLAG, state, requested_content, path, done = self.env.run_round()
                 
                 #@ 6. core network 에서 cache hit이 일어났을 때
@@ -136,11 +132,13 @@ class Agent:
                     
                     #@ 7. action 선택
                     action = self.model.get_action(state)
+                    
                     next_state, reward = self.env.step(action, path, requested_content)
                     episode_reward += reward
                     self.buffer.store(state, action, reward, next_state, done)
                     #@ 8. buffer에 어느정도 찼을 때, DQN train 시작. target network update
                     if self.buffer.buffer_count() >= cf.BUFFER_SIZE/2:
+                        #print('train')
                         if self.model.epsilon > cf.EPSILON_MIN:
                             self.model.epsilon *= cf.EPSILON_DECAY
                             
@@ -149,6 +147,7 @@ class Agent:
                         
                 #@ 9. cache hit 이 일어났을 경우 content storage update만 진행.
                 else:
+                    #print('update')
                     self.env.update()
 
             #self.target_update()
@@ -157,13 +156,13 @@ class Agent:
             #wandb.log({'Reward': episode_reward})
             #wandb.log({'CHR': self.env.total_cache_hit_count/self.env.round_nb})
             #wandb.log({'Avg_hop': self.env.total_hop/self.env.round_nb})
-
+'''
 def main():
-    scenario = Scenario(args)
-    env = nt.Network(scenario,args)
+    scenario = Scenario()
+    env = nt.Network(scenario)
     agent = Agent(env)
     agent.train()
 
 if __name__ == "__main__":
     main()
-    
+'''

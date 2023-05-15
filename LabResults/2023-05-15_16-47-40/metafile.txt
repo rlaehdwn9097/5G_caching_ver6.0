@@ -1,0 +1,50 @@
+===Network simulator Meta Data===
+TOTAL_PRIOD = 24
+MAX_ROUNDS = 200
+MAX_REQ_PER_ROUND = 1
+NB_NODES = 300
+TX_RANGE = 30
+AREA_WIDTH = 5000.0
+AREA_LENGTH = 5000.0
+NUM_microBS = 9
+NUM_BS = 4
+microBS_SIZE = 100
+BS_SIZE = 100
+CENTER_SIZE = 200
+DLthroughput = 658359899.1899999
+ULthroughput = 195484416.11999997
+DLpackets_per_second = 108281.25
+ULpackets_per_second = 29687.5
+LATENCY_INTERNET = 0.0025
+
+===DQN structure Meta Data===
+DNN Layer의 Hidden Unit 수는 H * state_dim 이다.
+DROPOUT_RATE = 0.2
+H1 = 1
+H2 = 3
+H3 = 9
+H4 = 9
+H5 = 9
+H6 = 6
+q = 4
+
+===DQN Agent Meta Data===
+GAMMA = 0.95
+BATCH_SIZE = 1024
+BUFFER_SIZE = 100000
+DQN_LEARNING_RATE = 5e-06
+TAU = 0.001
+EPSILON = 1.0
+EPSILON_DECAY = 0.99995
+EPSILON_MIN = 0.2
+NB_ACTION = 70
+
+===Reward parameter Meta Data===
+a = 1.5
+b = 2
+c = 0
+d = 0
+e = 0
+
+P_REWARD = 24
+N_REWARD = -18

@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import random
 import pandas as pd 
@@ -11,9 +12,10 @@ import NetworkEnv.genearal_distribution as gd
 # TODO : input --> Content List
 
 class Scenario(object):
-    def __init__(self, args):
-        self.args = args
-        self.contentList = self.set_contentList(contentfile = args.contentfile)
+    def __init__(self):
+        self.contentfile = cf.CONTENT_FILE
+        self.generating_method = cf.GEN_METHOD
+        self.contentList = self.set_contentList(contentfile = self.contentfile)
         self.titleList = self.set_titleList()
         self.weightList = self.set_weigthList()
 
@@ -28,7 +30,8 @@ class Scenario(object):
             return None
         
         else:
-            df = pd.read_csv(f'C:/Users/USER/vscodeworkspace/5G_Caching_porting_new_env/NetworkEnv/data/{contentfile}.csv')
+            df = pd.read_csv(os.path.join(os.path.dirname(__file__), f"./data/{contentfile}.csv"))
+            
             #rows, _ = df.shape
             keys = list(df.keys())
             for row in tqdm(df.to_numpy(), total = len(df), position=0, leave=True):
@@ -62,45 +65,45 @@ class Scenario(object):
         return self.titleList
     
     def set_weigthList(self):
-        if self.args.generating_method == 'sequential':
+        if self.generating_method == 'sequential':
             return None
-        elif self.args.generating_method == 'gaussian':
+        elif self.generating_method == 'gaussian':
             return None
         #! mMTC
-        elif self.args.generating_method == 'mMTC':
+        elif self.generating_method == 'mMTC':
             return None
         else:
-            weightList = getattr(gd, self.args.generating_method)(self.contentList)
+            weightList = getattr(gd, self.generating_method)(self.contentList)
 
         return weightList
     
     # 우리가 실험하던거
     def requestGenerate_gaussian(self,_day):
-        weightList = getattr(gd, self.args.generating_method)(self, _day)
+        weightList = getattr(gd, self.generating_method)(self, _day)
         choice = random.choices(self.contentList, weights = weightList, k = 1)
         return choice[0]
 
     def requestGenerate(self, date, _day):
         #! for the zipf
-        if self.args.generating_method == 'zipf':
+        if self.generating_method == 'zipf':
             choice = random.choices(self.contentList, weights = self.weightList, k = 1)
             #print(choice[0].__dict__)
             return choice[0]
         
         #! for the squential 
-        elif self.args.generating_method == 'sequential': 
+        elif self.generating_method == 'sequential': 
             choice = self.contentList[_day]
             return choice
         
         #! for gaussian
-        elif self.args.generating_method == 'gaussian':
-            self.weightList = getattr(gd, self.args.generating_method)(self.contentList, _day)
+        elif self.generating_method == 'gaussian':
+            self.weightList = getattr(gd, self.generating_method)(self.contentList, _day)
             choice = random.choices(self.contentList, weights = self.weightList, k = 1)
             #print(choice[0].__dict__)
             return choice[0]
         
         #! tmp mMTC need configuration,,, when loglikelyhood generating is done
-        elif self.args.contentfile == 'mMTC':
+        elif self.contentfile == 'mMTC':
             
             valid_list = []
             keys = ['id','temperature','humidty', 'generated_date', 'expiered_date','size']
@@ -133,7 +136,7 @@ class Scenario(object):
 
     def generateRequest(self, _i):
         # TODO : contentList 에서 원하는 generating_method에 따라 data generating
-        #weightList = getattr(gd, self.args.generating_method)(self)
+        #weightList = getattr(gd, self.generating_method)(self)
         choice = random.choices(self.contentList, weights = self.weightList, k = 1)
         return choice[0]
 

@@ -12,7 +12,7 @@ import NetworkEnv.node as nd
 import NetworkEnv.savingfunctions as sf
 
 class Network(list):
-    def __init__(self, Scenario, args):
+    def __init__(self, Scenario):
         # implementing Scenario
         self.scenario = Scenario
         #self.sc = Scenario
@@ -660,6 +660,7 @@ class Network(list):
         #   .
         #   DataCenter: (stored content label, request count of stored content label), ... ,(stored content label, request count of stored content label)
         # ]
+
         state = []
        
         #title = self.current_requested_content.get_title()
@@ -711,7 +712,7 @@ class Network(list):
             # content label
             state.append(0)
             # content round request count
-            for day in range(4):
+            for j in range(4):
                 state.append(0)
 
         # DataCenter
@@ -731,10 +732,11 @@ class Network(list):
             # content label
             state.append(0)
             # content request count
-            for day in range(4):
+            for k in range(4):
                 state.append(0)
 
         state = np.array(state)
+        
         return state
 
     def check_done(self):
@@ -1110,8 +1112,8 @@ class Network(list):
                         #print("del_content : {}".format(del_content.__dict__))
                         #print("바뀌기 전")
                         
-                        for j in range(len(self.search(self.microBSList, path[1]).storage.content_storage)):
-                            print(self.search(self.microBSList, path[1]).storage.content_storage[j].__dict__)
+                        #for j in range(len(self.search(self.microBSList, path[1]).storage.content_storage)):
+                            #print(self.search(self.microBSList, path[1]).storage.content_storage[j].__dict__)
 
                         self.search(self.microBSList, path[1]).storage.delContent(del_content)
                         self.search(self.microBSList, path[1]).storage.addContent(requested_content)
