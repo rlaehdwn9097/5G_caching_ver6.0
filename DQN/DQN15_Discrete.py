@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0,'C:/Users/USER/vscodeworkspace/5G_Caching_ver6.0')
+#sys.path.insert(0,'C:/Users/USER/vscodeworkspace/5G_Caching_ver6.0')
 
 import NetworkEnv.config as cf
 from NetworkEnv import network as nt

@@ -8,7 +8,7 @@ GEN_METHOD = "gaussian"
 # Episode Number
 MAX_EPISODE_NUM = 2000
 TOTAL_PRIOD = 24 #24 #(week)
-MAX_ROUNDS = 200  #70000 2만이나 3만으로 늘리고 기간을 한달이라고 하면 총 24 * 30일 
+MAX_ROUNDS = 5000  #70000 2만이나 3만으로 늘리고 기간을 한달이라고 하면 총 24 * 30일 
 MAX_REQ_PER_ROUND = 1
 
 # info of node
