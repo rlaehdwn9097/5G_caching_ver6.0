@@ -5,6 +5,11 @@ from platform import node
 CONTENT_FILE = "eMBB"
 GEN_METHOD = "gaussian"
 
+# for network current caching algorithm
+allocation_algorithm = None # LCE, LCD, RND
+replacement_algorithm = None # FIFO, LRU, LFU
+
+
 # Episode Number
 MAX_EPISODE_NUM = 2000
 TOTAL_PRIOD = 24 #24 #(week)

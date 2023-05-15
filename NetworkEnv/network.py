@@ -21,8 +21,8 @@ class Network(list):
         self.set_network_variables()
 
         # caching algorithm configuration
-        #self.cache_allocation_algorithm = args.allocation_algorithm
-        #self.cache_replacement_algorithm = args.replacement_algorithm
+        self.cache_allocation_algorithm = cf.allocation_algorithm
+        self.cache_replacement_algorithm = cf.replacement_algorithm
 
         #print('cache_allocation_algorithm : ',self.cache_allocation_algorithm)
         #print('cache_replacement_algorithm : ',self.cache_replacement_algorithm)

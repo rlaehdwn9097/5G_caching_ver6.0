@@ -16,8 +16,8 @@ args = parser.parse_args()
 
 if __name__=="__main__":
 
-    scenario = Scenario(args)
-    network = Network(scenario,args)
+    scenario = Scenario()
+    network = Network(scenario)
     network.simulate()
     network.print_results()
    
