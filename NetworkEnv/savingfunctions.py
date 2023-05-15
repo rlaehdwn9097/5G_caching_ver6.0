@@ -10,6 +10,12 @@ class savingfunctions():
 
         tm = localtime(time())
         self.Date = strftime('%Y-%m-%d_%H-%M-%S', tm)
+
+        if os.path.isdir('LabResults'):
+            pass
+        else:
+            os.mkdir('LabResults')
+
         self.folderName = "LabResults/" + str(self.Date)
         os.mkdir(self.folderName)
 
